@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Služby a sortiment - VITO Tlučná</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <style>
+    :root {
+      --accent: #f5fd21;
+      --accent-dark: #c2b800;
+      --bg: #fffbe6;
+      --text: #111;
+      --font-heading: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    header {
+      background-color: var(--accent);
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      position: relative;
+    }
+
+    header img {
+      width: clamp(250px, 30vw, 400px);
+      height: auto;
+      animation: logoPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .highlight {
+      color: var(--accent-dark);
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    nav {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-weight: bold;
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-dark);
+    }
+
+    .hamburger {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #111;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: var(--accent);
+        margin-top: 1rem;
+        border-radius: 10px;
+        padding: 1rem;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 3rem 2rem;
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      background: #fff;
+      padding: 1.5rem 2rem;
+      border-left: 8px solid var(--accent-dark);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    section h3 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--accent-dark);
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      list-style: disc;
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-cta {
+      text-align: center;
+      margin: 4rem 0 2rem;
+      font-size: 1.2rem;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      background-color: var(--accent-dark);
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: background 0.3s ease;
+    }
+
+    .contact-cta a:hover {
+      background-color: #a8a000;
+    }
+
+    footer {
+      background-color: var(--accent);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #222;
+      margin-top: 4rem;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="./static/images/vitologo.png" alt="VITO logo" />
+    <p class="highlight">Cokoliv, kdykoliv, kamkoliv..</p>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <nav class="nav-links">
+      <a href="/">O společnosti</a>
+      <a href="/sluzby">Služby a sortiment</a>
+      <a href="/fotogalerie">Fotogalerie</a>
+      <a href="/kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main data-aos="fade-up">
+    <h2>Služby a sortiment</h2>
+
+    <section><h3>Autodíly a příslušenství</h3><ul><li>Kompletní nabídka náhradních dílů pro tuzemské i zahraniční motorová vozidla a motocykly</li><li>Pneumatiky</li><li>Výroba brzdových trubek na zakázku dle požadavku</li><li>Doplňky a příslušenství</li><li>Nářadí</li><li>Vybavení autodílen</li><li>Oleje, maziva</li><li>Provozní kapaliny a nemrznoucí směsi</li><li>Řemeny</li><li>Akumulátory</li><li>Příprava na STK</li><li>Autoservis</li><li>Pneuservis</li><li>Pracovní oděvy a ochranné pomůcky</li></ul></section>
+
+    <section><h3>Barvy a laky</h3><ul><li>Široký sortiment vnitřních i venkovních nátěrových hmot</li><li>Spreje</li><li>Tónování a míchání na počkání</li><li>Lazurovací laky na dřevo</li><li>Barvy na kov</li><li>Interiérové a fasádní barvy</li><li>Ochranné nástřiky proti korozi</li><li>Tmely</li><li>Chemické přípravky a rozpouštědla</li><li>Štětce, válečky a další malířské potřeby</li></ul></section>
+
+    <section><h3>Železářství a domácí potřeby</h3><ul><li>Nářadí</li><li>Spojovací materiál</li><li>Brusné a řezací kotouče, brusné papíry</li><li>Hřebíky a vruty</li><li>Lepidla od A do Z</li></ul></section>
+
+    <section><h3>Zahrada a stavba</h3><ul><li>Zahradní nářadí</li><li>Bazénová chemie</li><li>Sekačky a motorové pily</li><li>Travní směsi a semena</li><li>Postřiky a hnojiva</li><li>Substráty a mulčovací kůra</li><li>Zahradní hadice a příslušenství</li><li>Stavební nářadí</li><li>Tmely</li></ul></section>
+
+    <section><h3>Elektro a elektronika</h3><ul><li>Elektrospotřebiče</li><li>Elektroinstalační materiál</li><li>Měřicí technika</li><li>Žárovky</li><li>Baterie</li></ul></section>
+
+    <section><h3>Hračky</h3><ul><li>Klasické hračky a společenské hry</li><li>Plyšáci</li><li>Slepovací modely</li><li>Puzzle</li><li>Míče</li></ul></section>
+
+    <section><h3>Chovatelské potřeby</h3><ul><li>Podestýlky</li><li>Granule, krmné směsi a pamlsky</li><li>Misky</li><li>Pelíšky</li></ul></section>
+
+    <section><h3>Drogerie</h3><ul><li>Prací prostředky</li><li>Hygienické prostředky a pomůcky</li><li>Parfémy</li><li>Desinfekční prostředky</li><li>Šampony</li></ul></section>
+
+    <section><h3>Kancelářské potřeby a papírnictví</h3><ul><li>Školní a kancelářské potřeby</li><li>Psací potřeby</li><li>Tiskopisy</li><li>Tapety</li><li>Přáníčka</li><li>Balicí papíry a služby</li></ul></section>
+
+    <section><h3>Cukrovinky a nápoje</h3><ul><li>Čokolády</li><li>Sušenky</li><li>Žvýkačky</li><li>Lihoviny</li><li>Vína</li><li>Nealko</li></ul></section>
+
+    <section><h3>Fotosběrna</h3><ul><li>Zpracování fotografií z filmu i v elektronické podobě</li></ul></section>
+
+
+    <div class="contact-cta">
+      <p>Nenašli jste, co jste hledali?</p>
+      <a href="/kontakt">📩Kontaktujte nás</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 VITO Tlučná. Všechna práva vyhrazena.</p>
+    <p><small>Ukázkový redesign pro prezentační účely</small></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
+</body>
+</html>
