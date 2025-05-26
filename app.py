@@ -21,7 +21,7 @@ def log_visit():
 @app.route('/')
 def index():
     log_visit()
-    return render_template('vito.html')
+    return render_template('index.html')
 
 @app.route('/sluzby')
 def sluzby():
