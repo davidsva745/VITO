@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Statistiky návštěvnosti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" />
+  <style>
+    :root {
+      --accent: #f5fd21;
+      --accent-dark: #c2b800;
+      --bg: #fffbe6;
+      --text: #111;
+      --font-heading: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    header {
+      background-color: var(--accent);
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      position: relative;
+    }
+
+    header img {
+      width: clamp(250px, 30vw, 400px);
+      height: auto;
+      animation: logoPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      margin-top: 1rem;
+    }
+
+    h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 3rem 2rem;
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    #calendar {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      font-family: var(--font-body);
+    }
+
+    .fc-toolbar-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--accent-dark);
+    }
+
+    .fc-button {
+      background-color: var(--accent-dark) !important;
+      border: none !important;
+      font-weight: bold;
+    }
+
+    .fc-button:hover {
+      background-color: #a8a000 !important;
+    }
+
+    .fc-daygrid-event {
+      background-color: var(--accent-dark);
+      border: none;
+      padding: 2px 6px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: var(--accent);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #222;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='images/vitologo.png') }}" alt="VITO logo">
+    <h1>Statistiky návštěvnosti</h1>
+    <h3>Omezený přístup</h3>
+  </header>
+
+  <main data-aos="fade-up">
+    <h2>Přehled podle kalendáře</h2>
+    <div id="calendar"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 VITO Tlučná. Všechna práva vyhrazena.</p>
+    <p><small>Přístup chráněn klíčem. Pouze pro správce.</small></p>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: '',
+        right: 'title'
+      },
+      buttonText: {
+        today: 'Dnes',
+        month: 'Měsíc',
+        week: 'Týden'
+      },
+      locale: 'cs',
+      events: '/admin/stats-daily.json?key=VITO123',
+      height: 'auto'
+    });
+
+    calendar.render();
+  });
+</script>
+
+
+</body>
+</html>

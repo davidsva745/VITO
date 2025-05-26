@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fotogalerie - VITO Tlučná</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .carousel-wrapper {
+      position: relative;
+      max-width: 100%;
+      margin: 0 auto 3rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .carousel-wrapper img {
+      display: none;
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .carousel-wrapper img.active {
+      display: block;
+    }
+
+    .carousel-buttons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .carousel-buttons button {
+      background-color: var(--accent-dark);
+      color: black;
+      font-weight: bold;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .carousel-buttons button:hover {
+      background-color: #a8a000;
+    }
+
+    .contact-cta {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--accent-dark);
+      color: black;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-cta a:hover {
+      transform: scale(1.05);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+</head>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='images/vitologo.png') }}" alt="VITO logo" />
+    <p class="highlight">Cokoliv, kdykoliv, kamkoliv..</p>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <nav class="nav-links">
+      <a href="/">O společnosti</a>
+      <a href="/sluzby">Služby a sortiment</a>
+      <a href="/fotogalerie">Fotogalerie</a>
+      <a href="/kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main data-aos="fade-up">
+    <h2>Fotogalerie</h2>
+
+    <section>
+      <h3>Obchod</h3>
+      <div class="carousel-wrapper" id="carousel-obchod">
+        <img src="{{ url_for('static', filename='images/obchod.jpg') }}" class="active" alt="Obchod 1">
+        <img src="{{ url_for('static', filename='images/obchod2.PNG') }}" alt="Obchod 2">
+        <div class="carousel-buttons">
+          <button onclick="prevSlide('carousel-obchod')">← Předchozí</button>
+          <button onclick="nextSlide('carousel-obchod')">Další →</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h3>Sortiment</h3>
+      <div class="carousel-wrapper" id="carousel-sortiment">
+        <img src="{{ url_for('static', filename='images/papirky.png') }}" class="active" alt="Papírky">
+        <img src="{{ url_for('static', filename='images/prani.png') }}" alt="Praní">
+        <img src="{{ url_for('static', filename='images/umyvani.png') }}" alt="Umývání">
+        <img src="{{ url_for('static', filename='images/vonavky.png') }}" alt="Vůně">
+        <div class="carousel-buttons">
+          <button onclick="prevSlide('carousel-sortiment')">← Předchozí</button>
+          <button onclick="nextSlide('carousel-sortiment')">Další →</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="contact-cta">
+      <p>Máte vlastní fotografie nebo nápady pro galerii?</p>
+      <a href="/kontakt">📩 Kontaktujte nás</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 VITO Tlučná. Všechna práva vyhrazena.</p>
+    <p><small>Ukázkový redesign pro prezentační účely</small></p>
+  </footer>
+
+  <script>
+    AOS.init();
+
+    function nextSlide(id) {
+      const slides = document.querySelectorAll(`#${id} img`);
+      let current = [...slides].findIndex(s => s.classList.contains("active"));
+      slides[current].classList.remove("active");
+      slides[(current + 1) % slides.length].classList.add("active");
+    }
+
+    function prevSlide(id) {
+      const slides = document.querySelectorAll(`#${id} img`);
+      let current = [...slides].findIndex(s => s.classList.contains("active"));
+      slides[current].classList.remove("active");
+      slides[(current - 1 + slides.length) % slides.length].classList.add("active");
+    }
+  </script>
+</body>
+</html>
