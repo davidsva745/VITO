@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>O společnosti - VITO Tlučná</title>
@@ -115,6 +116,7 @@
         background-color: var(--accent);
         padding: 1rem;
         margin-top: 1rem;
+        border-radius: 10px;
       }
 
       .nav-links.open {
@@ -135,7 +137,7 @@
 
     h2, h3 {
       font-family: var(--font-heading);
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin-bottom: 1rem;
       color: var(--text);
     }
@@ -187,7 +189,6 @@
     }
   </style>
 </head>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 <body>
   <header>
@@ -201,13 +202,11 @@
       <a href="{{ url_for('kontakt') }}">Kontakt</a>
     </nav>
 
-    
     <a href="{{ url_for('kontakt') }}" class="floating-cta">📩 Kontaktujte nás</a>
   </header>
 
   <main data-aos="fade-up">
     <h2>O společnosti</h2>
-    
     <p class="highlight">
       VITO Tlučná působí na trhu od roku 1992. Disponuje prodejní plochou 400 m² a specializuje se na široký okruh zákazníků v maloobchodu, velkoobchodu a službách.
     </p>
@@ -220,7 +219,6 @@
       <p><strong>Pondělí – Pátek:</strong> 07:30 – 16:00</p>
       <p><strong>Sobota:</strong> 08:00 – 11:00</p>
     </div>
-
 
     <div class="opening-hours">
       <h3>Kde nás najdete</h3>
@@ -240,6 +238,11 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init();</script>
+  <script>
+    AOS.init();
+    document.querySelector('.hamburger').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
 </body>
 </html>

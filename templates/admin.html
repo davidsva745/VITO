@@ -6,6 +6,7 @@
   <title>Admin - Statistiky návštěvnosti</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
     :root {
       --accent: #f5fd21;
@@ -34,11 +35,10 @@
       background-color: var(--accent);
       text-align: center;
       padding: 3rem 1rem 2rem;
-      position: relative;
     }
 
     header img {
-      width: clamp(250px, 30vw, 400px);
+      width: clamp(180px, 30vw, 400px);
       height: auto;
       animation: logoPulse 2.5s ease-in-out infinite;
     }
@@ -49,43 +49,34 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    h1 {
+    h1, h2, h3 {
       font-family: var(--font-heading);
-      font-size: 2.5rem;
-      margin-top: 1rem;
+      text-align: center;
+      margin: 1rem 0;
     }
 
-    h3 {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      text-align: center;
-      margin-top: 0.5rem;
-    }
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
 
     main {
       max-width: 960px;
       margin: auto;
-      padding: 3rem 2rem;
-    }
-
-    h2 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 2rem;
+      padding: 2rem 1rem;
     }
 
     #calendar {
       background: #fff;
-      padding: 1.5rem;
+      padding: 1rem;
       border-radius: 12px;
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
       font-family: var(--font-body);
+      overflow-x: auto;
     }
 
     .fc-toolbar-title {
       font-family: var(--font-heading);
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: var(--accent-dark);
     }
 
@@ -115,6 +106,16 @@
       color: #222;
       margin-top: 4rem;
     }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      h3 { font-size: 1.2rem; }
+      #calendar {
+        padding: 0.5rem;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -134,33 +135,27 @@
     <p><small>Přístup chráněn klíčem. Pouze pro správce.</small></p>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      headerToolbar: {
-        left: 'prev,next today',
-        center: '',
-        right: 'title'
-      },
-      buttonText: {
-        today: 'Dnes',
-        month: 'Měsíc',
-        week: 'Týden'
-      },
-      locale: 'cs',
-      events: '/admin/stats-daily.json?key=VITO123',
-      height: 'auto'
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: '',
+          right: 'title'
+        },
+        locale: 'cs',
+        buttonText: {
+          today: 'Dnes'
+        },
+        events: '/admin/stats-daily.json?key=VITO123',
+        height: 'auto'
+      });
+      calendar.render();
     });
-
-    calendar.render();
-  });
-</script>
-
-
+  </script>
 </body>
 </html>
