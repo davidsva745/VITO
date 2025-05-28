@@ -8,19 +8,35 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
-    :root {
+ :root {
       --accent: #f5fd21;
       --accent-dark: #c2b800;
-      --text: #111;
+      --bg-light: #fffbe6;
+      --bg-dark: #111;
+      --text-light: #111;
+      --text-dark: #eee;
       --font-heading: 'Bebas Neue', sans-serif;
       --font-body: 'Inter', sans-serif;
     }
 
-    body {
-      background-color: #fffbe6;
-      font-family: var(--font-body);
-      color: var(--text);
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     header {
@@ -33,19 +49,45 @@
     header img {
       width: clamp(250px, 30vw, 400px);
       height: auto;
-      animation: pulse 2.5s ease-in-out infinite;
+      animation: logoPulse 2.5s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
+    @keyframes logoPulse {
+      0% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.05); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     .highlight {
-      font-weight: bold;
       color: var(--accent-dark);
-      font-size: 1.2rem;
+      font-weight: bold;
       margin-bottom: 1rem;
+      font-size: 1.2rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+      animation: fadeInDown 1s ease-out both;
+    }
+
+    nav.nav-links {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    nav.nav-links a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav.nav-links a:hover,
+    nav.nav-links a.active {
+      color: var(--accent-dark);
+      transform: scale(1.1);
     }
 
     .hamburger {
@@ -60,48 +102,26 @@
       cursor: pointer;
     }
 
-    .nav-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 3rem;
-      margin-top: 2rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: bold;
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-dark);
-    }
-
     @media (max-width: 768px) {
       .hamburger {
         display: block;
       }
 
-      .nav-links {
+      nav.nav-links {
         display: none;
         flex-direction: column;
         background-color: var(--accent);
         padding: 1rem;
         margin-top: 1rem;
-        border-radius: 10px;
       }
 
-      .nav-links.open {
+      nav.nav-links.open {
         display: flex;
       }
 
-      .nav-links a {
-        font-size: 1.5rem;
+      nav.nav-links a {
         margin: 0.5rem 0;
+        font-size: 1.5rem;
       }
     }
 
@@ -111,26 +131,56 @@
       padding: 3rem 2rem;
     }
 
-    h2 {
-      font-family: var(--font-heading);
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-      h3 {
+    h2, h3 {
       font-family: var(--font-heading);
       font-size: 2rem;
       margin-bottom: 1rem;
     }
 
+    .opening-hours {
+      margin-top: 2rem;
+      background-color: #fffac2;
+      border: 2px dashed var(--accent-dark);
+      padding: 1.5rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+    }
+
     iframe {
       border: none;
       width: 100%;
-      max-width: 960px;
-      height: 400px;
+      height: 350px;
       border-radius: 10px;
       margin-top: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .floating-cta, .scroll-top {
+      position: fixed;
+      right: 1.5rem;
+      background-color: var(--accent-dark);
+      color: black;
+      padding: 0.9rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease;
+      z-index: 999;
+    }
+
+    .floating-cta {
+      bottom: 4rem;
+    }
+
+    .scroll-top {
+      bottom: 1rem;
+      padding: 0.6rem 1.2rem;
+      display: none;
+    }
+
+    .floating-cta:hover, .scroll-top:hover {
+      transform: scale(1.07);
     }
 
     footer {
@@ -140,6 +190,11 @@
       font-size: 0.9rem;
       color: #222;
       margin-top: 4rem;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
@@ -154,7 +209,7 @@
       <a href="/">O společnosti</a>
       <a href="/sluzby">Služby a sortiment</a>
       <a href="/fotogalerie">Fotogalerie</a>
-      <a href="/kontakt">Kontakt</a>
+      <a href="/kontakt"class="active">Kontakt</a>
     </nav>
   </header>
 
