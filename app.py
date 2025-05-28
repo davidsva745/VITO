@@ -1,33 +1,41 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, abort
 import socket
 import datetime
+import time
 from collections import Counter
-from flask import jsonify, request
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
+last_visits = {}  # IP → timestamp
 
-def log_visit(endpoint):
-    with open("access.log", "a") as f:
-        f.write(f"{datetime.datetime.now()} - {request.remote_addr} - {endpoint}\n")
+def log_visit():
+    now = time.time()
+    ip = request.remote_addr
+
+    # Loguj pouze pokud uplynulo víc než 10 minut od poslední návštěvy z IP
+    if ip not in last_visits or now - last_visits[ip] > 600:
+        last_visits[ip] = now
+        with open("access.log", "a") as f:
+            f.write(f"{datetime.datetime.now()} - {ip}\n")
 
 @app.route('/')
 def index():
-    log_visit("Homepage")
-    return render_template('vito.html')
+    log_visit()
+    return render_template('index.html')
+
 @app.route('/sluzby')
 def sluzby():
-    log_visit("Služby")
+    log_visit()
     return render_template('sluzby.html')
 
 @app.route('/kontakt')
 def kontakt():
-    log_visit("Kontakt")
+    log_visit()
     return render_template('kontakt.html')
-
 
 @app.route('/fotogalerie')
 def fotogalerie():
-    log_visit("Fotogalerie")
+    log_visit()
     return render_template('fotogalerie.html')
 
 @app.route('/admin/stats-daily.json')
@@ -45,16 +53,14 @@ def stats_daily():
             except:
                 continue
 
-    # FullCalendar expects ISO 8601 (YYYY-MM-DD)
     events = [{"title": f"Návštěv: {count}", "start": str(date)} for date, count in date_counter.items()]
     return jsonify(events)
 
-@app.route("/admin")
+@app.route('/admin')
 def admin_dashboard():
-    key = request.args.get("key")
-    if key != "VITO123":
+    if request.args.get("key") != "VITO123":
         abort(403)
-    return render_template("admin.html")
+    return render_template('admin.html')
 
 if __name__ == '__main__':
     hostname = socket.gethostname()
